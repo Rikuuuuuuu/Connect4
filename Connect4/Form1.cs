@@ -45,5 +45,12 @@ namespace Connect4
             this.Hide();
             f.ShowDialog();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Form3 f = new Form3();
+            this.Hide();
+            f.ShowDialog();
+        }
     }
 }
