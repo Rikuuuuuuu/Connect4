@@ -295,15 +295,80 @@ namespace Connect4
             {
                 i = 6;
             }
-            if (i == 0)
+            //Vasen reuna
+            if (i == 0 || i == 1 || i == 2 || i == 3)
             {   
                 //Punainen
-                if (labels[i + 35].ForeColor == Color.Red && labels[i + 36].ForeColor == Color.Red && labels[i + 37].ForeColor == Color.Red && labels[i + 38].ForeColor == Color.Red)
+                if (labels[i + 35].ForeColor == Color.Red && labels[i + 36].ForeColor == Color.Red && labels[i + 37].ForeColor == Color.Red && labels[i + 38].ForeColor == Color.Red || labels[i + 28].ForeColor == Color.Red && labels[i + 29].ForeColor == Color.Red && labels[i + 30].ForeColor == Color.Red && labels[i + 31].ForeColor == Color.Red || labels[i + 21].ForeColor == Color.Red && labels[i + 22].ForeColor == Color.Red && labels[i + 23].ForeColor == Color.Red && labels[i + 24].ForeColor == Color.Red || labels[i + 14].ForeColor == Color.Red && labels[i + 15].ForeColor == Color.Red && labels[i + 16].ForeColor == Color.Red && labels[i + 17].ForeColor == Color.Red || labels[i + 7].ForeColor == Color.Red && labels[i + 8].ForeColor == Color.Red && labels[i + 9].ForeColor == Color.Red && labels[i + 10].ForeColor == Color.Red || labels[i + 0].ForeColor == Color.Red && labels[i + 1].ForeColor == Color.Red && labels[i + 2].ForeColor == Color.Red && labels[i + 3].ForeColor == Color.Red)
                 {
                     MessageBox.Show("Punainen voitti pelin!");
                 }
                 //Keltainen
-                if (labels[i + 35].ForeColor == Color.Yellow && labels[i + 36].ForeColor == Color.Yellow && labels[i + 37].ForeColor == Color.Yellow && labels[i + 38].ForeColor == Color.Yellow)
+                if (labels[i + 35].ForeColor == Color.Yellow && labels[i + 36].ForeColor == Color.Yellow && labels[i + 37].ForeColor == Color.Yellow && labels[i + 38].ForeColor == Color.Yellow || labels[i + 28].ForeColor == Color.Yellow && labels[i + 29].ForeColor == Color.Yellow && labels[i + 30].ForeColor == Color.Yellow && labels[i + 31].ForeColor == Color.Yellow || labels[i + 21].ForeColor == Color.Yellow && labels[i + 22].ForeColor == Color.Yellow && labels[i + 23].ForeColor == Color.Yellow && labels[i + 24].ForeColor == Color.Yellow || labels[i + 14].ForeColor == Color.Yellow && labels[i + 15].ForeColor == Color.Yellow && labels[i + 16].ForeColor == Color.Yellow && labels[i + 17].ForeColor == Color.Yellow || labels[i + 7].ForeColor == Color.Yellow && labels[i + 8].ForeColor == Color.Yellow && labels[i + 9].ForeColor == Color.Yellow && labels[i + 10].ForeColor == Color.Yellow || labels[i + 0].ForeColor == Color.Yellow && labels[i + 1].ForeColor == Color.Yellow && labels[i + 2].ForeColor == Color.Yellow && labels[i + 3].ForeColor == Color.Yellow)
+                {
+                    MessageBox.Show("Keltainen voitti pelin!");
+                }
+            }
+            if (i == 1 || i == 2 || i == 3)
+            {
+                //Punainen
+                if (labels[i + 34].ForeColor == Color.Red && labels[i + 35].ForeColor == Color.Red && labels[i + 36].ForeColor == Color.Red && labels[i + 37].ForeColor == Color.Red || labels[i + 27].ForeColor == Color.Red && labels[i + 28].ForeColor == Color.Red && labels[i + 29].ForeColor == Color.Red && labels[i + 30].ForeColor == Color.Red || labels[i + 20].ForeColor == Color.Red && labels[i + 21].ForeColor == Color.Red && labels[i + 22].ForeColor == Color.Red && labels[i + 23].ForeColor == Color.Red || labels[i + 13].ForeColor == Color.Red && labels[i + 14].ForeColor == Color.Red && labels[i + 15].ForeColor == Color.Red && labels[i + 16].ForeColor == Color.Red || labels[i + 6].ForeColor == Color.Red && labels[i + 7].ForeColor == Color.Red && labels[i + 8].ForeColor == Color.Red && labels[i + 9].ForeColor == Color.Red || labels[i - 1].ForeColor == Color.Red && labels[i + 0].ForeColor == Color.Red && labels[i + 1].ForeColor == Color.Red && labels[i + 2].ForeColor == Color.Red)
+                {
+                    MessageBox.Show("Punainen voitti pelin!");
+                }
+                //Keltainen
+                if (labels[i + 34].ForeColor == Color.Yellow && labels[i + 35].ForeColor == Color.Yellow && labels[i + 36].ForeColor == Color.Yellow && labels[i + 37].ForeColor == Color.Yellow || labels[i + 27].ForeColor == Color.Yellow && labels[i + 28].ForeColor == Color.Yellow && labels[i + 29].ForeColor == Color.Yellow && labels[i + 30].ForeColor == Color.Yellow || labels[i + 20].ForeColor == Color.Yellow && labels[i + 21].ForeColor == Color.Yellow && labels[i + 22].ForeColor == Color.Yellow && labels[i + 23].ForeColor == Color.Yellow || labels[i + 13].ForeColor == Color.Yellow && labels[i + 14].ForeColor == Color.Yellow && labels[i + 15].ForeColor == Color.Yellow && labels[i + 16].ForeColor == Color.Yellow || labels[i + 6].ForeColor == Color.Yellow && labels[i + 7].ForeColor == Color.Yellow && labels[i + 8].ForeColor == Color.Yellow && labels[i + 9].ForeColor == Color.Yellow || labels[i - 1].ForeColor == Color.Yellow && labels[i + 0].ForeColor == Color.Yellow && labels[i + 1].ForeColor == Color.Yellow && labels[i + 2].ForeColor == Color.Yellow)
+                {
+                    MessageBox.Show("Keltainen voitti pelin!");
+                }
+            }
+            if (i == 2 || i == 3)
+            {
+                //Punainen
+                if (labels[i + 33].ForeColor == Color.Red && labels[i + 34].ForeColor == Color.Red && labels[i + 35].ForeColor == Color.Red && labels[i + 36].ForeColor == Color.Red || labels[i + 26].ForeColor == Color.Red && labels[i + 27].ForeColor == Color.Red && labels[i + 28].ForeColor == Color.Red && labels[i + 29].ForeColor == Color.Red || labels[i + 19].ForeColor == Color.Red && labels[i + 20].ForeColor == Color.Red && labels[i + 21].ForeColor == Color.Red && labels[i + 22].ForeColor == Color.Red || labels[i + 12].ForeColor == Color.Red && labels[i + 13].ForeColor == Color.Red && labels[i + 14].ForeColor == Color.Red && labels[i + 15].ForeColor == Color.Red || labels[i + 5].ForeColor == Color.Red && labels[i + 6].ForeColor == Color.Red && labels[i + 7].ForeColor == Color.Red && labels[i + 8].ForeColor == Color.Red || labels[i - 2].ForeColor == Color.Red && labels[i - 1].ForeColor == Color.Red && labels[i + 0].ForeColor == Color.Red && labels[i + 1].ForeColor == Color.Red)
+                {
+                    MessageBox.Show("Punainen voitti pelin!");
+                }
+                //Keltainen
+                if (labels[i + 33].ForeColor == Color.Yellow && labels[i + 34].ForeColor == Color.Yellow && labels[i + 35].ForeColor == Color.Yellow && labels[i + 36].ForeColor == Color.Yellow || labels[i + 26].ForeColor == Color.Yellow && labels[i + 27].ForeColor == Color.Yellow && labels[i + 28].ForeColor == Color.Yellow && labels[i + 29].ForeColor == Color.Yellow || labels[i + 19].ForeColor == Color.Yellow && labels[i + 20].ForeColor == Color.Yellow && labels[i + 21].ForeColor == Color.Yellow && labels[i + 22].ForeColor == Color.Yellow || labels[i + 12].ForeColor == Color.Yellow && labels[i + 13].ForeColor == Color.Yellow && labels[i + 14].ForeColor == Color.Yellow && labels[i + 15].ForeColor == Color.Yellow || labels[i + 5].ForeColor == Color.Yellow && labels[i + 6].ForeColor == Color.Yellow && labels[i + 7].ForeColor == Color.Yellow && labels[i + 8].ForeColor == Color.Yellow || labels[i - 2].ForeColor == Color.Yellow && labels[i - 1].ForeColor == Color.Yellow && labels[i + 0].ForeColor == Color.Yellow && labels[i + 1].ForeColor == Color.Yellow)
+                {
+                    MessageBox.Show("Keltainen voitti pelin!");
+                }
+            }
+            //Oikea reuna
+            if (i == 6 || i == 5 || i == 4 || i == 3)
+            {
+                //Punainen
+                if (labels[i + 35].ForeColor == Color.Red && labels[i + 34].ForeColor == Color.Red && labels[i + 33].ForeColor == Color.Red && labels[i + 32].ForeColor == Color.Red || labels[i + 28].ForeColor == Color.Red && labels[i + 27].ForeColor == Color.Red && labels[i + 26].ForeColor == Color.Red && labels[i + 25].ForeColor == Color.Red || labels[i + 21].ForeColor == Color.Red && labels[i + 20].ForeColor == Color.Red && labels[i + 19].ForeColor == Color.Red && labels[i + 18].ForeColor == Color.Red || labels[i + 14].ForeColor == Color.Red && labels[i + 13].ForeColor == Color.Red && labels[i + 12].ForeColor == Color.Red && labels[i + 11].ForeColor == Color.Red || labels[i + 7].ForeColor == Color.Red && labels[i + 6].ForeColor == Color.Red && labels[i + 5].ForeColor == Color.Red && labels[i + 4].ForeColor == Color.Red || labels[i + 0].ForeColor == Color.Red && labels[i - 1].ForeColor == Color.Red && labels[i - 2].ForeColor == Color.Red && labels[i - 3].ForeColor == Color.Red)
+                {
+                    MessageBox.Show("Punainen voitti pelin!");
+                }
+                //Keltainen
+                if (labels[i + 35].ForeColor == Color.Yellow && labels[i + 34].ForeColor == Color.Yellow && labels[i + 33].ForeColor == Color.Yellow && labels[i + 32].ForeColor == Color.Yellow || labels[i + 28].ForeColor == Color.Yellow && labels[i + 27].ForeColor == Color.Yellow && labels[i + 26].ForeColor == Color.Yellow && labels[i + 25].ForeColor == Color.Yellow || labels[i + 21].ForeColor == Color.Yellow && labels[i + 20].ForeColor == Color.Yellow && labels[i + 19].ForeColor == Color.Yellow && labels[i + 18].ForeColor == Color.Yellow || labels[i + 14].ForeColor == Color.Yellow && labels[i + 13].ForeColor == Color.Yellow && labels[i + 12].ForeColor == Color.Yellow && labels[i + 11].ForeColor == Color.Yellow || labels[i + 7].ForeColor == Color.Yellow && labels[i + 6].ForeColor == Color.Yellow && labels[i + 5].ForeColor == Color.Yellow && labels[i + 4].ForeColor == Color.Yellow || labels[i + 0].ForeColor == Color.Yellow && labels[i - 1].ForeColor == Color.Yellow && labels[i - 2].ForeColor == Color.Yellow && labels[i - 3].ForeColor == Color.Yellow)
+                {
+                    MessageBox.Show("Keltainen voitti pelin!");
+                }
+            }
+            if (i == 5 || i == 4 || i == 3)
+            {
+                if (labels[i + 36].ForeColor == Color.Red && labels[i + 35].ForeColor == Color.Red && labels[i + 34].ForeColor == Color.Red && labels[i + 33].ForeColor == Color.Red || labels[i + 29].ForeColor == Color.Red && labels[i + 28].ForeColor == Color.Red && labels[i + 27].ForeColor == Color.Red && labels[i + 26].ForeColor == Color.Red || labels[i + 22].ForeColor == Color.Red && labels[i + 21].ForeColor == Color.Red && labels[i + 20].ForeColor == Color.Red && labels[i + 19].ForeColor == Color.Red || labels[i + 15].ForeColor == Color.Red && labels[i + 14].ForeColor == Color.Red && labels[i + 13].ForeColor == Color.Red && labels[i + 12].ForeColor == Color.Red || labels[i + 8].ForeColor == Color.Red && labels[i + 7].ForeColor == Color.Red && labels[i + 6].ForeColor == Color.Red && labels[i + 5].ForeColor == Color.Red || labels[i + 1].ForeColor == Color.Red && labels[i + 0].ForeColor == Color.Red && labels[i - 1].ForeColor == Color.Red && labels[i - 2].ForeColor == Color.Red)
+                {
+                    MessageBox.Show("Punainen voitti pelin!");
+                }
+                //Keltainen
+                if (labels[i + 36].ForeColor == Color.Yellow && labels[i + 35].ForeColor == Color.Yellow && labels[i + 34].ForeColor == Color.Yellow && labels[i + 33].ForeColor == Color.Yellow || labels[i + 29].ForeColor == Color.Yellow && labels[i + 28].ForeColor == Color.Yellow && labels[i + 27].ForeColor == Color.Yellow && labels[i + 26].ForeColor == Color.Yellow || labels[i + 22].ForeColor == Color.Yellow && labels[i + 21].ForeColor == Color.Yellow && labels[i + 20].ForeColor == Color.Yellow && labels[i + 19].ForeColor == Color.Yellow || labels[i + 15].ForeColor == Color.Yellow && labels[i + 14].ForeColor == Color.Yellow && labels[i + 13].ForeColor == Color.Yellow && labels[i + 12].ForeColor == Color.Yellow || labels[i + 8].ForeColor == Color.Yellow && labels[i + 7].ForeColor == Color.Yellow && labels[i + 6].ForeColor == Color.Yellow && labels[i + 5].ForeColor == Color.Yellow || labels[i + 1].ForeColor == Color.Yellow && labels[i + 0].ForeColor == Color.Yellow && labels[i - 1].ForeColor == Color.Yellow && labels[i - 2].ForeColor == Color.Yellow)
+                {
+                    MessageBox.Show("Keltainen voitti pelin!");
+                }
+            }
+            if (i == 4 || i == 3)
+            {
+                if (labels[i + 37].ForeColor == Color.Red && labels[i + 36].ForeColor == Color.Red && labels[i + 35].ForeColor == Color.Red && labels[i + 34].ForeColor == Color.Red || labels[i + 30].ForeColor == Color.Red && labels[i + 29].ForeColor == Color.Red && labels[i + 28].ForeColor == Color.Red && labels[i + 27].ForeColor == Color.Red || labels[i + 23].ForeColor == Color.Red && labels[i + 22].ForeColor == Color.Red && labels[i + 21].ForeColor == Color.Red && labels[i + 20].ForeColor == Color.Red || labels[i + 16].ForeColor == Color.Red && labels[i + 15].ForeColor == Color.Red && labels[i + 14].ForeColor == Color.Red && labels[i + 13].ForeColor == Color.Red || labels[i + 9].ForeColor == Color.Red && labels[i + 8].ForeColor == Color.Red && labels[i + 7].ForeColor == Color.Red && labels[i + 6].ForeColor == Color.Red || labels[i + 2].ForeColor == Color.Red && labels[i + 1].ForeColor == Color.Red && labels[i + 0].ForeColor == Color.Red && labels[i - 1].ForeColor == Color.Red)
+                {
+                    MessageBox.Show("Punainen voitti pelin!");
+                }
+                //Keltainen
+                if (labels[i + 37].ForeColor == Color.Yellow && labels[i + 36].ForeColor == Color.Yellow && labels[i + 35].ForeColor == Color.Yellow && labels[i + 34].ForeColor == Color.Yellow || labels[i + 30].ForeColor == Color.Yellow && labels[i + 29].ForeColor == Color.Yellow && labels[i + 28].ForeColor == Color.Yellow && labels[i + 27].ForeColor == Color.Yellow || labels[i + 23].ForeColor == Color.Yellow && labels[i + 22].ForeColor == Color.Yellow && labels[i + 21].ForeColor == Color.Yellow && labels[i + 20].ForeColor == Color.Yellow || labels[i + 16].ForeColor == Color.Yellow && labels[i + 15].ForeColor == Color.Yellow && labels[i + 14].ForeColor == Color.Yellow && labels[i + 13].ForeColor == Color.Yellow || labels[i + 9].ForeColor == Color.Yellow && labels[i + 8].ForeColor == Color.Yellow && labels[i + 7].ForeColor == Color.Yellow && labels[i + 6].ForeColor == Color.Yellow || labels[i + 2].ForeColor == Color.Yellow && labels[i + 1].ForeColor == Color.Yellow && labels[i + 0].ForeColor == Color.Yellow && labels[i - 1].ForeColor == Color.Yellow)
                 {
                     MessageBox.Show("Keltainen voitti pelin!");
                 }
@@ -312,7 +377,35 @@ namespace Connect4
         public void RistiVasenOikea(Label label)
         {
             int i = Convert.ToInt32(label.Name);
-
+            if (i == 3)
+            {
+                //Punainen
+                //03-20
+                if (labels[i].ForeColor == Color.Red && labels[i + 8].ForeColor == Color.Red && labels[i + 16].ForeColor == Color.Red && labels[i + 24].ForeColor == Color.Red)
+                {
+                    MessageBox.Show("Punainen voitti pelin!");
+                }
+                //02-26
+                if (labels[i-1].ForeColor == Color.Red && labels[i + 7].ForeColor == Color.Red && labels[i + 8].ForeColor == Color.Red && labels[i + 16].ForeColor == Color.Red)
+                {
+                    MessageBox.Show("Punainen voitti pelin!");
+                }
+                //10-34
+                if (labels[i + 7].ForeColor == Color.Red && labels[i + 8].ForeColor == Color.Red && labels[i + 16].ForeColor == Color.Red && labels[i + 24].ForeColor == Color.Red)
+                {
+                    MessageBox.Show("Punainen voitti pelin!");
+                }
+                //01-25  
+                if (labels[i - 2].ForeColor == Color.Red && labels[i + 6].ForeColor == Color.Red && labels[i + 14].ForeColor == Color.Red && labels[i + 22].ForeColor == Color.Red)
+                {
+                    MessageBox.Show("Punainen voitti pelin!");
+                }
+                //09-33
+                if (labels[i + 6].ForeColor == Color.Red && labels[i + 14].ForeColor == Color.Red && labels[i + 22].ForeColor == Color.Red && labels[i + 30].ForeColor == Color.Red)
+                {
+                    MessageBox.Show("Punainen voitti pelin!");
+                }
+            }
         }
         public void RistiOikeaVasen(Label label)
         {

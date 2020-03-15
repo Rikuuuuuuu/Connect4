@@ -36,7 +36,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(626, 537);
             this.Name = "Form3";
-            this.Text = "Form3";
+            this.Text = "Pelilauta";
             this.ResumeLayout(false);
 
         }
