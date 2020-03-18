@@ -20,12 +20,12 @@ namespace Connect4
 
         private void Pisteet_Load(object sender, EventArgs e)
         {
-            SqlConnection conn = new SqlConnection(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog = ConnectFourScore;User ID=LAPTOP-Q131GA2D\ruots;Trusted_Connection=yes;");
+            SqlConnection conn = new SqlConnection(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Pisteet;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False;");
             conn.Open();
 
             SqlDataAdapter adapt;
             DataTable dt = new DataTable();
-            adapt = new SqlDataAdapter("select * from Score", conn);
+            adapt = new SqlDataAdapter("select Nimi,Väri,Pvm from score", conn);
             adapt.Fill(dt);
             dataGridView1.DataSource = dt;
 
@@ -44,6 +44,13 @@ namespace Connect4
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Menu f = new Menu();
+            this.Hide();
+            f.ShowDialog();
         }
     }
 }

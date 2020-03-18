@@ -28,19 +28,34 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.NextPlayer = new System.Windows.Forms.Label();
             this.SuspendLayout();
+            // 
+            // NextPlayer
+            // 
+            this.NextPlayer.AutoSize = true;
+            this.NextPlayer.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.NextPlayer.Location = new System.Drawing.Point(646, 237);
+            this.NextPlayer.Name = "NextPlayer";
+            this.NextPlayer.Size = new System.Drawing.Size(228, 55);
+            this.NextPlayer.TabIndex = 0;
+            this.NextPlayer.Text = "Punainen";
             // 
             // Form3
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(626, 537);
+            this.ClientSize = new System.Drawing.Size(897, 537);
+            this.Controls.Add(this.NextPlayer);
             this.Name = "Form3";
             this.Text = "Pelilauta";
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
+
+        private System.Windows.Forms.Label NextPlayer;
     }
 }
