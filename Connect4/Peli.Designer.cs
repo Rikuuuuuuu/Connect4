@@ -1,6 +1,6 @@
 ﻿namespace Connect4
 {
-    partial class Form3
+    partial class Peli
     {
         /// <summary>
         /// Required designer variable.
@@ -41,14 +41,15 @@
             this.NextPlayer.TabIndex = 0;
             this.NextPlayer.Text = "Punainen";
             // 
-            // Form3
+            // Peli
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(897, 537);
             this.Controls.Add(this.NextPlayer);
-            this.Name = "Form3";
+            this.Name = "Peli";
             this.Text = "Pelilauta";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Peli_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
 

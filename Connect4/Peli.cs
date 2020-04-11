@@ -12,7 +12,7 @@ using System.Configuration;
 
 namespace Connect4
 {
-    public partial class Form3 : Form
+    public partial class Peli : Form
     {
         SqlConnection dbYhteys = new SqlConnection(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Pisteet;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False;");
         string P1Nimi;
@@ -24,7 +24,7 @@ namespace Connect4
         string vari2;
         Label[] labels = new Label[42];
 
-        public Form3(string p1vari, string p2vari, string P1Name, string P2Name)
+        public Peli(string p1vari, string p2vari, string P1Name, string P2Name)
         {
             InitializeComponent();
             P1Nimi = P1Name;
@@ -165,8 +165,8 @@ namespace Connect4
                 }
             }
         }
-        //Sql
-        public void Data1()
+        //Pelaaja1 Datan lisäys voitto taulukkoon
+        public void Data1Voitto()
         {
             dbYhteys.Open();
             SqlCommand sc = new SqlCommand("INSERT INTO score(Nimi,Väri,Pvm)VALUES(@Nimi,@Vari,@Pvm)", dbYhteys);
@@ -179,7 +179,19 @@ namespace Connect4
             this.Hide();
             f.ShowDialog();
         }
-        public void Data2()
+        //Pelaaja1 Datan lisäys häviö taulukkoon
+        public void Data1Havio()
+        {
+            dbYhteys.Open();
+            SqlCommand sc = new SqlCommand("INSERT INTO havio(Nimi,Väri,Pvm)VALUES(@Nimi,@Vari,@Pvm)", dbYhteys);
+            sc.Parameters.Add("@Nimi", SqlDbType.VarChar, 100).Value = P1Nimi;
+            sc.Parameters.Add("@Vari", SqlDbType.VarChar, 100).Value = vari1;
+            sc.Parameters.Add("@Pvm", SqlDbType.DateTime).Value = DateTime.Now;
+            sc.ExecuteNonQuery();
+            dbYhteys.Close();
+        }
+        //Pelaaja2 Datan lisäys voitto taulukkoon
+        public void Data2Voitto()
         {
             dbYhteys.Open();
             SqlCommand sc = new SqlCommand("INSERT INTO score(Nimi,Väri,Pvm)VALUES(@Nimi,@Vari,@Pvm)", dbYhteys);
@@ -191,6 +203,17 @@ namespace Connect4
             Pisteet f = new Pisteet();
             this.Hide();
             f.ShowDialog();
+        }
+        //Pelaaja2 Datan lisäys häviö taulukkoon
+        public void Data2Havio()
+        {
+            dbYhteys.Open();
+            SqlCommand sc = new SqlCommand("INSERT INTO havio(Nimi,Väri,Pvm)VALUES(@Nimi,@Vari,@Pvm)", dbYhteys);
+            sc.Parameters.Add("@Nimi", SqlDbType.VarChar, 100).Value = P2Nimi;
+            sc.Parameters.Add("@Vari", SqlDbType.VarChar, 100).Value = vari2;
+            sc.Parameters.Add("@Pvm", SqlDbType.DateTime).Value = DateTime.Now;
+            sc.ExecuteNonQuery();
+            dbYhteys.Close();
         }
         //Valitun labelin tarkistus
         private void Label_click(object sender, EventArgs e)
@@ -210,7 +233,7 @@ namespace Connect4
             int i = Convert.ToInt32(label.Name);
             if (i == 0 || i == 7 || i == 14 || i == 21 || i == 28 || i == 35)
             {
-                 i = 0;
+                i = 0;
             }
             if (i == 1 || i == 8 || i == 15 || i == 22 || i == 29 || i == 36)
             {
@@ -381,33 +404,39 @@ namespace Connect4
             if(labels[i+35].ForeColor == P1Color && labels[i+28].ForeColor == P1Color && labels[i + 21].ForeColor == P1Color && labels[i + 14].ForeColor == P1Color)
             {
                 MessageBox.Show(P1Nimi + " voitti pelin!");
-                Data1();
+                Data2Havio();
+                Data1Voitto();              
             }
             if (labels[i + 28].ForeColor == P1Color && labels[i + 21].ForeColor == P1Color && labels[i + 14].ForeColor == P1Color && labels[i + 7].ForeColor == P1Color)
             {
                 MessageBox.Show(P1Nimi + " voitti pelin!");
-                Data1();
+                Data2Havio();
+                Data1Voitto();            
             }
             if (labels[i + 21].ForeColor == P1Color && labels[i + 14].ForeColor == P1Color && labels[i + 7].ForeColor == P1Color && labels[i].ForeColor == P1Color)
             {
                 MessageBox.Show(P1Nimi + " voitti pelin!");
-                Data1();
+                Data1Voitto();
+                Data2Havio();
             }
             //P2
             if (labels[i + 35].ForeColor == P2Color && labels[i + 28].ForeColor == P2Color && labels[i + 21].ForeColor == P2Color && labels[i + 14].ForeColor == P2Color)
             {
                 MessageBox.Show(P2Nimi + " voitti pelin!");
-                Data2();
+                Data1Havio();
+                Data2Voitto();
             }
             if (labels[i + 28].ForeColor == P2Color && labels[i + 21].ForeColor == P2Color && labels[i + 14].ForeColor == P2Color && labels[i + 7].ForeColor == P2Color)
             {
                 MessageBox.Show(P2Nimi + " voitti pelin!");
-                Data2();
+                Data1Havio();
+                Data2Voitto();
             }
             if (labels[i + 21].ForeColor == P2Color && labels[i + 14].ForeColor == P2Color && labels[i + 7].ForeColor == P2Color && labels[i].ForeColor == P2Color)
             {
                 MessageBox.Show(P2Nimi + " voitti pelin!");
-                Data2();
+                Data1Havio();
+                Data2Voitto();
             }
 
         }
@@ -451,13 +480,15 @@ namespace Connect4
                 if (labels[i + 35].ForeColor == P1Color && labels[i + 36].ForeColor == P1Color && labels[i + 37].ForeColor == P1Color && labels[i + 38].ForeColor == P1Color || labels[i + 28].ForeColor == P1Color && labels[i + 29].ForeColor == P1Color && labels[i + 30].ForeColor == P1Color && labels[i + 31].ForeColor == P1Color || labels[i + 21].ForeColor == P1Color && labels[i + 22].ForeColor == P1Color && labels[i + 23].ForeColor == P1Color && labels[i + 24].ForeColor == P1Color || labels[i + 14].ForeColor == P1Color && labels[i + 15].ForeColor == P1Color && labels[i + 16].ForeColor == P1Color && labels[i + 17].ForeColor == P1Color || labels[i + 7].ForeColor == P1Color && labels[i + 8].ForeColor == P1Color && labels[i + 9].ForeColor == P1Color && labels[i + 10].ForeColor == P1Color || labels[i + 0].ForeColor == P1Color && labels[i + 1].ForeColor == P1Color && labels[i + 2].ForeColor == P1Color && labels[i + 3].ForeColor == P1Color)
                 {
                     MessageBox.Show(P1Nimi + " voitti pelin!");
-                    Data1();
+                    Data2Havio();
+                    Data1Voitto();
                 }
                 //P2
                 if (labels[i + 35].ForeColor == P2Color && labels[i + 36].ForeColor == P2Color && labels[i + 37].ForeColor == P2Color && labels[i + 38].ForeColor == P2Color || labels[i + 28].ForeColor == P2Color && labels[i + 29].ForeColor == P2Color && labels[i + 30].ForeColor == P2Color && labels[i + 31].ForeColor == P2Color || labels[i + 21].ForeColor == P2Color && labels[i + 22].ForeColor == P2Color && labels[i + 23].ForeColor == P2Color && labels[i + 24].ForeColor == P2Color || labels[i + 14].ForeColor == P2Color && labels[i + 15].ForeColor == P2Color && labels[i + 16].ForeColor == P2Color && labels[i + 17].ForeColor == P2Color || labels[i + 7].ForeColor == P2Color && labels[i + 8].ForeColor == P2Color && labels[i + 9].ForeColor == P2Color && labels[i + 10].ForeColor == P2Color || labels[i + 0].ForeColor == P2Color && labels[i + 1].ForeColor == P2Color && labels[i + 2].ForeColor == P2Color && labels[i + 3].ForeColor == P2Color)
                 {
                     MessageBox.Show(P2Nimi + " voitti pelin!");
-                    Data2();
+                    Data1Havio();
+                    Data2Voitto();
                 }
             }
             if (i == 1 || i == 2 || i == 3)
@@ -466,13 +497,15 @@ namespace Connect4
                 if (labels[i + 34].ForeColor == P1Color && labels[i + 35].ForeColor == P1Color && labels[i + 36].ForeColor == P1Color && labels[i + 37].ForeColor == P1Color || labels[i + 27].ForeColor == P1Color && labels[i + 28].ForeColor == P1Color && labels[i + 29].ForeColor == P1Color && labels[i + 30].ForeColor == P1Color || labels[i + 20].ForeColor == P1Color && labels[i + 21].ForeColor == P1Color && labels[i + 22].ForeColor == P1Color && labels[i + 23].ForeColor == P1Color || labels[i + 13].ForeColor == P1Color && labels[i + 14].ForeColor == P1Color && labels[i + 15].ForeColor == P1Color && labels[i + 16].ForeColor == P1Color || labels[i + 6].ForeColor == P1Color && labels[i + 7].ForeColor == P1Color && labels[i + 8].ForeColor == P1Color && labels[i + 9].ForeColor == P1Color || labels[i - 1].ForeColor == P1Color && labels[i + 0].ForeColor == P1Color && labels[i + 1].ForeColor == P1Color && labels[i + 2].ForeColor == P1Color)
                 {
                     MessageBox.Show(P1Nimi + " voitti pelin!");
-                    Data1();
+                    Data2Havio();
+                    Data1Voitto();
                 }
                 //P2
                 if (labels[i + 34].ForeColor == P2Color && labels[i + 35].ForeColor == P2Color && labels[i + 36].ForeColor == P2Color && labels[i + 37].ForeColor == P2Color || labels[i + 27].ForeColor == P2Color && labels[i + 28].ForeColor == P2Color && labels[i + 29].ForeColor == P2Color && labels[i + 30].ForeColor == P2Color || labels[i + 20].ForeColor == P2Color && labels[i + 21].ForeColor == P2Color && labels[i + 22].ForeColor == P2Color && labels[i + 23].ForeColor == P2Color || labels[i + 13].ForeColor == P2Color && labels[i + 14].ForeColor == P2Color && labels[i + 15].ForeColor == P2Color && labels[i + 16].ForeColor == P2Color || labels[i + 6].ForeColor == P2Color && labels[i + 7].ForeColor == P2Color && labels[i + 8].ForeColor == P2Color && labels[i + 9].ForeColor == P2Color || labels[i - 1].ForeColor == P2Color && labels[i + 0].ForeColor == P2Color && labels[i + 1].ForeColor == P2Color && labels[i + 2].ForeColor == P2Color)
                 {
                     MessageBox.Show(P2Nimi + " voitti pelin!");
-                    Data2();
+                    Data1Havio();
+                    Data2Voitto();
                 }
             }
             if (i == 2 || i == 3)
@@ -481,13 +514,15 @@ namespace Connect4
                 if (labels[i + 33].ForeColor == P1Color && labels[i + 34].ForeColor == P1Color && labels[i + 35].ForeColor == P1Color && labels[i + 36].ForeColor == P1Color || labels[i + 26].ForeColor == P1Color && labels[i + 27].ForeColor == P1Color && labels[i + 28].ForeColor == P1Color && labels[i + 29].ForeColor == P1Color || labels[i + 19].ForeColor == P1Color && labels[i + 20].ForeColor == P1Color && labels[i + 21].ForeColor == P1Color && labels[i + 22].ForeColor == P1Color || labels[i + 12].ForeColor == P1Color && labels[i + 13].ForeColor == P1Color && labels[i + 14].ForeColor == P1Color && labels[i + 15].ForeColor == P1Color || labels[i + 5].ForeColor == P1Color && labels[i + 6].ForeColor == P1Color && labels[i + 7].ForeColor == P1Color && labels[i + 8].ForeColor == P1Color || labels[i - 2].ForeColor == P1Color && labels[i - 1].ForeColor == P1Color && labels[i + 0].ForeColor == P1Color && labels[i + 1].ForeColor == P1Color)
                 {
                     MessageBox.Show(P1Nimi + " voitti pelin!");
-                    Data1();
+                    Data2Havio();
+                    Data1Voitto();
                 }
                 //P2
                 if (labels[i + 33].ForeColor == P2Color && labels[i + 34].ForeColor == P2Color && labels[i + 35].ForeColor == P2Color && labels[i + 36].ForeColor == P2Color || labels[i + 26].ForeColor == P2Color && labels[i + 27].ForeColor == P2Color && labels[i + 28].ForeColor == P2Color && labels[i + 29].ForeColor == P2Color || labels[i + 19].ForeColor == P2Color && labels[i + 20].ForeColor == P2Color && labels[i + 21].ForeColor == P2Color && labels[i + 22].ForeColor == P2Color || labels[i + 12].ForeColor == P2Color && labels[i + 13].ForeColor == P2Color && labels[i + 14].ForeColor == P2Color && labels[i + 15].ForeColor == P2Color || labels[i + 5].ForeColor == P2Color && labels[i + 6].ForeColor == P2Color && labels[i + 7].ForeColor == P2Color && labels[i + 8].ForeColor == P2Color || labels[i - 2].ForeColor == P2Color && labels[i - 1].ForeColor == P2Color && labels[i + 0].ForeColor == P2Color && labels[i + 1].ForeColor == P2Color)
                 {
                     MessageBox.Show(P2Nimi + " voitti pelin!");
-                    Data2();
+                    Data1Havio();
+                    Data2Voitto();
                 }
             }
             //Oikea reuna
@@ -497,13 +532,15 @@ namespace Connect4
                 if (labels[i + 35].ForeColor == P1Color && labels[i + 34].ForeColor == P1Color && labels[i + 33].ForeColor == P1Color && labels[i + 32].ForeColor == P1Color || labels[i + 28].ForeColor == P1Color && labels[i + 27].ForeColor == P1Color && labels[i + 26].ForeColor == P1Color && labels[i + 25].ForeColor == P1Color || labels[i + 21].ForeColor == P1Color && labels[i + 20].ForeColor == P1Color && labels[i + 19].ForeColor == P1Color && labels[i + 18].ForeColor == P1Color || labels[i + 14].ForeColor == P1Color && labels[i + 13].ForeColor == P1Color && labels[i + 12].ForeColor == P1Color && labels[i + 11].ForeColor == P1Color || labels[i + 7].ForeColor == P1Color && labels[i + 6].ForeColor == P1Color && labels[i + 5].ForeColor == P1Color && labels[i + 4].ForeColor == P1Color || labels[i + 0].ForeColor == P1Color && labels[i - 1].ForeColor == P1Color && labels[i - 2].ForeColor == P1Color && labels[i - 3].ForeColor == P1Color)
                 {
                     MessageBox.Show(P1Nimi + " voitti pelin!");
-                    Data1();
+                    Data2Havio();
+                    Data1Voitto();
                 }
                 //P2
                 if (labels[i + 35].ForeColor == P2Color && labels[i + 34].ForeColor == P2Color && labels[i + 33].ForeColor == P2Color && labels[i + 32].ForeColor == P2Color || labels[i + 28].ForeColor == P2Color && labels[i + 27].ForeColor == P2Color && labels[i + 26].ForeColor == P2Color && labels[i + 25].ForeColor == P2Color || labels[i + 21].ForeColor == P2Color && labels[i + 20].ForeColor == P2Color && labels[i + 19].ForeColor == P2Color && labels[i + 18].ForeColor == P2Color || labels[i + 14].ForeColor == P2Color && labels[i + 13].ForeColor == P2Color && labels[i + 12].ForeColor == P2Color && labels[i + 11].ForeColor == P2Color || labels[i + 7].ForeColor == P2Color && labels[i + 6].ForeColor == P2Color && labels[i + 5].ForeColor == P2Color && labels[i + 4].ForeColor == P2Color || labels[i + 0].ForeColor == P2Color && labels[i - 1].ForeColor == P2Color && labels[i - 2].ForeColor == P2Color && labels[i - 3].ForeColor == P2Color)
                 {
                     MessageBox.Show(P2Nimi + " voitti pelin!");
-                    Data2();
+                    Data1Havio();
+                    Data2Voitto();
                 }
             }
             if (i == 5 || i == 4 || i == 3)
@@ -512,13 +549,15 @@ namespace Connect4
                 if (labels[i + 36].ForeColor == P1Color && labels[i + 35].ForeColor == P1Color && labels[i + 34].ForeColor == P1Color && labels[i + 33].ForeColor == P1Color || labels[i + 29].ForeColor == P1Color && labels[i + 28].ForeColor == P1Color && labels[i + 27].ForeColor == P1Color && labels[i + 26].ForeColor == P1Color || labels[i + 22].ForeColor == P1Color && labels[i + 21].ForeColor == P1Color && labels[i + 20].ForeColor == P1Color && labels[i + 19].ForeColor == P1Color || labels[i + 15].ForeColor == P1Color && labels[i + 14].ForeColor == P1Color && labels[i + 13].ForeColor == P1Color && labels[i + 12].ForeColor == P1Color || labels[i + 8].ForeColor == P1Color && labels[i + 7].ForeColor == P1Color && labels[i + 6].ForeColor == P1Color && labels[i + 5].ForeColor == P1Color || labels[i + 1].ForeColor == P1Color && labels[i + 0].ForeColor == P1Color && labels[i - 1].ForeColor == P1Color && labels[i - 2].ForeColor == P1Color)
                 {
                     MessageBox.Show(P1Nimi + " voitti pelin!");
-                    Data1();
+                    Data2Havio();
+                    Data1Voitto();
                 }
                 //P2
                 if (labels[i + 36].ForeColor == P2Color && labels[i + 35].ForeColor == P2Color && labels[i + 34].ForeColor == P2Color && labels[i + 33].ForeColor == P2Color || labels[i + 29].ForeColor == P2Color && labels[i + 28].ForeColor == P2Color && labels[i + 27].ForeColor == P2Color && labels[i + 26].ForeColor == P2Color || labels[i + 22].ForeColor == P2Color && labels[i + 21].ForeColor == P2Color && labels[i + 20].ForeColor == P2Color && labels[i + 19].ForeColor == P2Color || labels[i + 15].ForeColor == P2Color && labels[i + 14].ForeColor == P2Color && labels[i + 13].ForeColor == P2Color && labels[i + 12].ForeColor == P2Color || labels[i + 8].ForeColor == P2Color && labels[i + 7].ForeColor == P2Color && labels[i + 6].ForeColor == P2Color && labels[i + 5].ForeColor == P2Color || labels[i + 1].ForeColor == P2Color && labels[i + 0].ForeColor == P2Color && labels[i - 1].ForeColor == P2Color && labels[i - 2].ForeColor == P2Color)
                 {
                     MessageBox.Show(P2Nimi + " voitti pelin!");
-                    Data2();
+                    Data1Havio();
+                    Data2Voitto();
                 }
             }
             if (i == 4 || i == 3)
@@ -527,13 +566,15 @@ namespace Connect4
                 if (labels[i + 37].ForeColor == P1Color && labels[i + 36].ForeColor == P1Color && labels[i + 35].ForeColor == P1Color && labels[i + 34].ForeColor == P1Color || labels[i + 30].ForeColor == P1Color && labels[i + 29].ForeColor == P1Color && labels[i + 28].ForeColor == P1Color && labels[i + 27].ForeColor == P1Color || labels[i + 23].ForeColor == P1Color && labels[i + 22].ForeColor == P1Color && labels[i + 21].ForeColor == P1Color && labels[i + 20].ForeColor == P1Color || labels[i + 16].ForeColor == P1Color && labels[i + 15].ForeColor == P1Color && labels[i + 14].ForeColor == P1Color && labels[i + 13].ForeColor == P1Color || labels[i + 9].ForeColor == P1Color && labels[i + 8].ForeColor == P1Color && labels[i + 7].ForeColor == P1Color && labels[i + 6].ForeColor == P1Color || labels[i + 2].ForeColor == P1Color && labels[i + 1].ForeColor == P1Color && labels[i + 0].ForeColor == P1Color && labels[i - 1].ForeColor == P1Color)
                 {
                     MessageBox.Show(P1Nimi + " voitti pelin!");
-                    Data1();
+                    Data2Havio();
+                    Data1Voitto();
                 }
                 //P2
                 if (labels[i + 37].ForeColor == P2Color && labels[i + 36].ForeColor == P2Color && labels[i + 35].ForeColor == P2Color && labels[i + 34].ForeColor == P2Color || labels[i + 30].ForeColor == P2Color && labels[i + 29].ForeColor == P2Color && labels[i + 28].ForeColor == P2Color && labels[i + 27].ForeColor == P2Color || labels[i + 23].ForeColor == P2Color && labels[i + 22].ForeColor == P2Color && labels[i + 21].ForeColor == P2Color && labels[i + 20].ForeColor == P2Color || labels[i + 16].ForeColor == P2Color && labels[i + 15].ForeColor == P2Color && labels[i + 14].ForeColor == P2Color && labels[i + 13].ForeColor == P2Color || labels[i + 9].ForeColor == P2Color && labels[i + 8].ForeColor == P2Color && labels[i + 7].ForeColor == P2Color && labels[i + 6].ForeColor == P2Color || labels[i + 2].ForeColor == P2Color && labels[i + 1].ForeColor == P2Color && labels[i + 0].ForeColor == P2Color && labels[i - 1].ForeColor == P2Color)
                 {
                     MessageBox.Show(P2Nimi + " voitti pelin!");
-                    Data2();
+                    Data1Havio();
+                    Data2Voitto();
                 }
             }
         }
@@ -577,37 +618,43 @@ namespace Connect4
                 if (labels[i].ForeColor == P1Color && labels[i + 8].ForeColor == P1Color && labels[i + 16].ForeColor == P1Color && labels[i + 24].ForeColor == P1Color)
                 {
                     MessageBox.Show(P1Nimi + " voitti pelin!");
-                    Data1();
+                    Data2Havio();
+                    Data1Voitto();
                 }
                 //P2
                 if (labels[i].ForeColor == P2Color && labels[i + 8].ForeColor == P2Color && labels[i + 16].ForeColor == P2Color && labels[i + 24].ForeColor == P2Color)
                 {
                     MessageBox.Show(P2Nimi + " voitti pelin!");
-                    Data2();
+                    Data1Havio();
+                    Data2Voitto();
                 }
                 //P1
                 if (labels[i + 7].ForeColor == P1Color && labels[i + 15].ForeColor == P1Color && labels[i + 23].ForeColor == P1Color && labels[i + 31].ForeColor == P1Color)
                 {
                     MessageBox.Show(P1Nimi + " voitti pelin!");
-                    Data1();
+                    Data2Havio();
+                    Data1Voitto();
                 }
                 //P2
                 if (labels[i + 7].ForeColor == P2Color && labels[i + 15].ForeColor == P2Color && labels[i + 23].ForeColor == P2Color && labels[i + 31].ForeColor == P2Color)
                 {
                     MessageBox.Show(P2Nimi + " voitti pelin!");
-                    Data2();
+                    Data1Havio();
+                    Data2Voitto();
                 }
                 //P1
                 if (labels[i + 14].ForeColor == P1Color && labels[i + 22].ForeColor == P1Color && labels[i + 30].ForeColor == P1Color && labels[i + 38].ForeColor == P1Color)
                 {
                     MessageBox.Show(P1Nimi + " voitti pelin!");
-                    Data1();
+                    Data2Havio();
+                    Data1Voitto();
                 }
                 //P2
                 if (labels[i + 14].ForeColor == P2Color && labels[i + 22].ForeColor == P2Color && labels[i + 30].ForeColor == P2Color && labels[i + 38].ForeColor == P2Color)
                 {
                     MessageBox.Show(P2Nimi + " voitti pelin!");
-                    Data2();
+                    Data1Havio();
+                    Data2Voitto();
                 }
             }
             //+1
@@ -617,37 +664,43 @@ namespace Connect4
                 if (labels[i - 1].ForeColor == P1Color && labels[i + 7].ForeColor == P1Color && labels[i + 15].ForeColor == P1Color && labels[i + 23].ForeColor == P1Color)
                 {
                     MessageBox.Show(P1Nimi + " voitti pelin!");
-                    Data1();
+                    Data2Havio();
+                    Data1Voitto();
                 }
                 //P2
                 if (labels[i - 1].ForeColor == P2Color && labels[i + 7].ForeColor == P2Color && labels[i + 15].ForeColor == P2Color && labels[i + 23].ForeColor == P2Color)
                 {
                     MessageBox.Show(P2Nimi + " voitti pelin!");
-                    Data2();
+                    Data1Havio();
+                    Data2Voitto();
                 }
                 //P1
                 if (labels[i + 6].ForeColor == P1Color && labels[i + 14].ForeColor == P1Color && labels[i + 22].ForeColor == P1Color && labels[i + 30].ForeColor == P1Color)
                 {
                     MessageBox.Show(P1Nimi + " voitti pelin!");
-                    Data1();
+                    Data2Havio();
+                    Data1Voitto();
                 }
                 //P2
                 if (labels[i + 6].ForeColor == P2Color && labels[i + 14].ForeColor == P2Color && labels[i + 22].ForeColor == P2Color && labels[i + 30].ForeColor == P2Color)
                 {
                     MessageBox.Show(P2Nimi + " voitti pelin!");
-                    Data2();
+                    Data1Havio();
+                    Data2Voitto(); 
                 }
                 //P1
                 if (labels[i + 13].ForeColor == P1Color && labels[i + 21].ForeColor == P1Color && labels[i + 29].ForeColor == P1Color && labels[i + 37].ForeColor == P1Color)
                 {
                     MessageBox.Show(P1Nimi + " voitti pelin!");
-                    Data1();
+                    Data2Havio();
+                    Data1Voitto();
                 }
                 //P2
                 if (labels[i + 13].ForeColor == P2Color && labels[i + 21].ForeColor == P2Color && labels[i + 29].ForeColor == P2Color && labels[i + 37].ForeColor == P2Color)
                 {
                     MessageBox.Show(P2Nimi + " voitti pelin!");
-                    Data2();
+                    Data1Havio();
+                    Data2Voitto(); 
                 }
             }
             //+2
@@ -657,37 +710,43 @@ namespace Connect4
                 if (labels[i - 2].ForeColor == P1Color && labels[i + 6].ForeColor == P1Color && labels[i + 14].ForeColor == P1Color && labels[i + 22].ForeColor == P1Color)
                 {
                     MessageBox.Show(P1Nimi + " voitti pelin!");
-                    Data1();
+                    Data2Havio();
+                    Data1Voitto();
                 }
                 //P2
                 if (labels[i - 2].ForeColor == P2Color && labels[i + 6].ForeColor == P2Color && labels[i + 14].ForeColor == P2Color && labels[i + 22].ForeColor == P2Color)
                 {
                     MessageBox.Show(P2Nimi + " voitti pelin!");
-                    Data2();
+                    Data1Havio();
+                    Data2Voitto(); 
                 }
                 //P1
                 if (labels[i + 5].ForeColor == P1Color && labels[i + 13].ForeColor == P1Color && labels[i + 21].ForeColor == P1Color && labels[i + 29].ForeColor == P1Color)
                 {
                     MessageBox.Show(P1Nimi + " voitti pelin!");
-                    Data1();
+                    Data2Havio();
+                    Data1Voitto();
                 }
                 //P2
                 if (labels[i + 5].ForeColor == P2Color && labels[i + 13].ForeColor == P2Color && labels[i + 21].ForeColor == P2Color && labels[i + 29].ForeColor == P2Color)
                 {
                     MessageBox.Show(P2Nimi + " voitti pelin!");
-                    Data2();
+                    Data1Havio();
+                    Data2Voitto();
                 }
                 //P1
                 if (labels[i + 12].ForeColor == P1Color && labels[i + 20].ForeColor == P1Color && labels[i + 28].ForeColor == P1Color && labels[i + 36].ForeColor == P1Color)
                 {
                     MessageBox.Show(P1Nimi + " voitti pelin!");
-                    Data1();
+                    Data2Havio();
+                    Data1Voitto();
                 }
                 //P2
                 if (labels[i + 12].ForeColor == P2Color && labels[i + 20].ForeColor == P2Color && labels[i + 28].ForeColor == P2Color && labels[i + 36].ForeColor == P2Color)
                 {
                     MessageBox.Show(P2Nimi + " voitti pelin!");
-                    Data2();
+                    Data1Havio();
+                    Data2Voitto();
                 }
             }
             //+3
@@ -697,37 +756,43 @@ namespace Connect4
                 if (labels[i - 3].ForeColor == P1Color && labels[i + 5].ForeColor == P1Color && labels[i + 13].ForeColor == P1Color && labels[i + 21].ForeColor == P1Color)
                 {
                     MessageBox.Show(P1Nimi + " voitti pelin!");
-                    Data1();
+                    Data2Havio();
+                    Data1Voitto();
                 }
                 //P2
                 if (labels[i - 3].ForeColor == P2Color && labels[i + 5].ForeColor == P2Color && labels[i + 13].ForeColor == P2Color && labels[i + 21].ForeColor == P2Color)
                 {
                     MessageBox.Show(P2Nimi + " voitti pelin!");
-                    Data2();
+                    Data1Havio();
+                    Data2Voitto();
                 }
                 //P1
                 if (labels[i + 4].ForeColor == P1Color && labels[i + 12].ForeColor == P1Color && labels[i + 20].ForeColor == P1Color && labels[i + 28].ForeColor == P1Color)
                 {
                     MessageBox.Show(P1Nimi + " voitti pelin!");
-                    Data1();
+                    Data2Havio();
+                    Data1Voitto();
                 }
                 //P2
                 if (labels[i + 4].ForeColor == P2Color && labels[i + 12].ForeColor == P2Color && labels[i + 20].ForeColor == P2Color && labels[i + 28].ForeColor == P2Color)
                 {
                     MessageBox.Show(P2Nimi + " voitti pelin!");
-                    Data2();
+                    Data1Havio();
+                    Data2Voitto(); 
                 }
                 //P1
                 if (labels[i + 11].ForeColor == P1Color && labels[i + 19].ForeColor == P1Color && labels[i + 27].ForeColor == P1Color && labels[i + 35].ForeColor == P1Color)
                 {
                     MessageBox.Show(P1Nimi + " voitti pelin!");
-                    Data1();
+                    Data2Havio();
+                    Data1Voitto();
                 }
                 //P2
                 if (labels[i + 11].ForeColor == P2Color && labels[i + 19].ForeColor == P2Color && labels[i + 27].ForeColor == P2Color && labels[i + 35].ForeColor == P2Color)
                 {
                     MessageBox.Show(P2Nimi + " voitti pelin!");
-                    Data2();
+                    Data1Havio();
+                    Data2Voitto();
                 }
             }
         }
@@ -771,37 +836,43 @@ namespace Connect4
                 if (labels[i].ForeColor == P1Color && labels[i + 6].ForeColor == P1Color && labels[i + 12].ForeColor == P1Color && labels[i + 18].ForeColor == P1Color)
                 {
                     MessageBox.Show(P1Nimi + " voitti pelin!");
-                    Data1();
+                    Data2Havio();
+                    Data1Voitto();
                 }
                 //P2
                 if (labels[i].ForeColor == P2Color && labels[i + 6].ForeColor == P2Color && labels[i + 12].ForeColor == P2Color && labels[i + 18].ForeColor == P2Color)
                 {
                     MessageBox.Show(P2Nimi + " voitti pelin!");
-                    Data2();
+                    Data1Havio();
+                    Data2Voitto();
                 }
                 //P1
                 if (labels[i + 7].ForeColor == P1Color && labels[i + 13].ForeColor == P1Color && labels[i + 19].ForeColor == P1Color && labels[i + 25].ForeColor == P1Color)
                 {
                     MessageBox.Show(P1Nimi + " voitti pelin!");
-                    Data1();
+                    Data2Havio();
+                    Data1Voitto();
                 }
                 //P2
                 if (labels[i + 7].ForeColor == P2Color && labels[i + 13].ForeColor == P2Color && labels[i + 19].ForeColor == P2Color && labels[i + 25].ForeColor == P2Color)
                 {
                     MessageBox.Show(P2Nimi + " voitti pelin!");
-                    Data2();
+                    Data1Havio();
+                    Data2Voitto();
                 }
                 //P1
                 if (labels[i + 14].ForeColor == P1Color && labels[i + 20].ForeColor == P1Color && labels[i + 26].ForeColor == P1Color && labels[i + 32].ForeColor == P1Color)
                 {
                     MessageBox.Show(P1Nimi + " voitti pelin!");
-                    Data1();
+                    Data2Havio();
+                    Data1Voitto(); 
                 }
                 //P2
                 if (labels[i + 14].ForeColor == P2Color && labels[i + 20].ForeColor == P2Color && labels[i + 26].ForeColor == P2Color && labels[i + 32].ForeColor == P2Color)
                 {
                     MessageBox.Show(P2Nimi + " voitti pelin!");
-                    Data2();
+                    Data1Havio();
+                    Data2Voitto();
                 }
             }
             //+1
@@ -811,37 +882,43 @@ namespace Connect4
                 if (labels[i + 1].ForeColor == P1Color && labels[i + 7].ForeColor == P1Color && labels[i + 13].ForeColor == P1Color && labels[i + 19].ForeColor == P1Color)
                 {
                     MessageBox.Show(P1Nimi + " voitti pelin!");
-                    Data1();
+                    Data2Havio();
+                    Data1Voitto();
                 }
                 //P2
                 if (labels[i + 1].ForeColor == P2Color && labels[i + 7].ForeColor == P2Color && labels[i + 13].ForeColor == P2Color && labels[i + 19].ForeColor == P2Color)
                 {
                     MessageBox.Show(P2Nimi + " voitti pelin!");
-                    Data2();
+                    Data1Havio();
+                    Data2Voitto();
                 }
                 //P1
                 if (labels[i + 8].ForeColor == P1Color && labels[i + 14].ForeColor == P1Color && labels[i + 20].ForeColor == P1Color && labels[i + 26].ForeColor == P1Color)
                 {
                     MessageBox.Show(P1Nimi + " voitti pelin!");
-                    Data1();
+                    Data2Havio();
+                    Data1Voitto();
                 }
                 //P2
                 if (labels[i + 8].ForeColor == P2Color && labels[i + 14].ForeColor == P2Color && labels[i + 20].ForeColor == P2Color && labels[i + 26].ForeColor == P2Color)
                 {
                     MessageBox.Show(P2Nimi + " voitti pelin!");
-                    Data2();
+                    Data1Havio();
+                    Data2Voitto();
                 }
                 //P1
                 if (labels[i + 15].ForeColor == P1Color && labels[i + 21].ForeColor == P1Color && labels[i + 27].ForeColor == P1Color && labels[i + 33].ForeColor == P1Color)
                 {
                     MessageBox.Show(P1Nimi + " voitti pelin!");
-                    Data1();
+                    Data2Havio();
+                    Data1Voitto();
                 }
                 //P2
                 if (labels[i + 15].ForeColor == P2Color && labels[i + 21].ForeColor == P2Color && labels[i + 27].ForeColor == P2Color && labels[i + 33].ForeColor == P2Color)
                 {
                     MessageBox.Show(P2Nimi + " voitti pelin!");
-                    Data2();
+                    Data1Havio();
+                    Data2Voitto();
                 }
             }
             //+2
@@ -851,37 +928,43 @@ namespace Connect4
                 if (labels[i + 2].ForeColor == P1Color && labels[i + 8].ForeColor == P1Color && labels[i + 14].ForeColor == P1Color && labels[i + 20].ForeColor == P1Color)
                 {
                     MessageBox.Show(P1Nimi + " voitti pelin!");
-                    Data1();
+                    Data2Havio();
+                    Data1Voitto();
                 }
                 //P2
                 if (labels[i + 2].ForeColor == P2Color && labels[i + 8].ForeColor == P2Color && labels[i + 14].ForeColor == P2Color && labels[i + 20].ForeColor == P2Color)
                 {
                     MessageBox.Show(P2Nimi + " voitti pelin!");
-                    Data2();
+                    Data1Havio();
+                    Data2Voitto();
                 }
                 //P1
                 if (labels[i + 9].ForeColor == P1Color && labels[i + 15].ForeColor == P1Color && labels[i + 21].ForeColor == P1Color && labels[i + 27].ForeColor == P1Color)
                 {
                     MessageBox.Show(P1Nimi + " voitti pelin!");
-                    Data1();
+                    Data2Havio();
+                    Data1Voitto();
                 }
                 //P2
                 if (labels[i + 9].ForeColor == P2Color && labels[i + 15].ForeColor == P2Color && labels[i + 21].ForeColor == P2Color && labels[i + 27].ForeColor == P2Color)
                 {
                     MessageBox.Show(P2Nimi + " voitti pelin!");
-                    Data2();
+                    Data1Havio();
+                    Data2Voitto();
                 }
                 //P1
                 if (labels[i + 16].ForeColor == P1Color && labels[i + 22].ForeColor == P1Color && labels[i + 28].ForeColor == P1Color && labels[i + 34].ForeColor == P1Color)
                 {
                     MessageBox.Show(P1Nimi + " voitti pelin!");
-                    Data1();
+                    Data2Havio();
+                    Data1Voitto();
                 }
                 //P2
                 if (labels[i + 16].ForeColor == P2Color && labels[i + 22].ForeColor == P2Color && labels[i + 28].ForeColor == P2Color && labels[i + 34].ForeColor == P2Color)
                 {
                     MessageBox.Show(P2Nimi + " voitti pelin!");
-                    Data2();
+                    Data1Havio();
+                    Data2Voitto();
                 }
             }
             //+3
@@ -891,37 +974,43 @@ namespace Connect4
                 if (labels[i + 3].ForeColor == P1Color && labels[i + 9].ForeColor == P1Color && labels[i + 15].ForeColor == P1Color && labels[i + 21].ForeColor == P1Color)
                 {
                     MessageBox.Show(P1Nimi + " voitti pelin!");
-                    Data1();
+                    Data2Havio();
+                    Data1Voitto();
                 }
                 //P2
                 if (labels[i + 3].ForeColor == P2Color && labels[i + 9].ForeColor == P2Color && labels[i + 15].ForeColor == P2Color && labels[i + 21].ForeColor == P2Color)
                 {
                     MessageBox.Show(P2Nimi + " voitti pelin!");
-                    Data2();
+                    Data1Havio();
+                    Data2Voitto();
                 }
                 //P1
                 if (labels[i + 10].ForeColor == P1Color && labels[i + 16].ForeColor == P1Color && labels[i + 22].ForeColor == P1Color && labels[i + 28].ForeColor == P1Color)
                 {
                     MessageBox.Show(P1Nimi + " voitti pelin!");
-                    Data1();
+                    Data2Havio();
+                    Data1Voitto();
                 }
                 //P2
                 if (labels[i + 10].ForeColor == P2Color && labels[i + 16].ForeColor == P2Color && labels[i + 22].ForeColor == P2Color && labels[i + 28].ForeColor == P2Color)
                 {
                     MessageBox.Show(P2Nimi + " voitti pelin!");
-                    Data2();
+                    Data1Havio();
+                    Data2Voitto();
                 }
                 //P1
                 if (labels[i + 17].ForeColor == P1Color && labels[i + 23].ForeColor == P1Color && labels[i + 29].ForeColor == P1Color && labels[i + 35].ForeColor == P1Color)
                 {
                     MessageBox.Show(P1Nimi + " voitti pelin!");
-                    Data1();
+                    Data2Havio();
+                    Data1Voitto();
                 }
                 //P2
                 if (labels[i + 17].ForeColor == P2Color && labels[i + 23].ForeColor == P2Color && labels[i + 29].ForeColor == P2Color && labels[i + 35].ForeColor == P2Color)
                 {
                     MessageBox.Show(P2Nimi + " voitti pelin!");
-                    Data2();
+                    Data1Havio();
+                    Data2Voitto();
                 }
             }
         }
@@ -937,11 +1026,21 @@ namespace Connect4
                 sc.Parameters.Add("@Vari", SqlDbType.VarChar, 100).Value = "Tasapeli";
                 sc.Parameters.Add("@Pvm", SqlDbType.DateTime).Value = DateTime.Now;
                 sc.ExecuteNonQuery();
+                SqlCommand sd = new SqlCommand("INSERT INTO havio(Nimi,Väri,Pvm)VALUES(@Nimi,@Vari,@Pvm)", dbYhteys);
+                sd.Parameters.Add("@Nimi", SqlDbType.VarChar, 100).Value = "Tasapeli";
+                sd.Parameters.Add("@Vari", SqlDbType.VarChar, 100).Value = "Tasapeli";
+                sd.Parameters.Add("@Pvm", SqlDbType.DateTime).Value = DateTime.Now;
+                sd.ExecuteNonQuery();
                 dbYhteys.Close();
                 Pisteet f = new Pisteet();
                 this.Hide();
                 f.ShowDialog();
             }
+        }
+        //Formin sulkeminen rastista painamalla
+        private void Peli_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Application.Exit();
         }
     }
 }
